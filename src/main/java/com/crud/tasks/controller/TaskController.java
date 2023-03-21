@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/tasks")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class TaskController {
 
     @Autowired
@@ -52,6 +53,4 @@ public class TaskController {
         service.saveTask(task);
         return ResponseEntity.ok().build();
     }
-
-
 }
