@@ -25,8 +25,8 @@ public class TrelloClient {
 
     private final TrelloConfig config;
 
-    private URI getMyUrl() {
-        return UriComponentsBuilder.fromHttpUrl(config.getTrelloApiEndpoint() + "/members/" + config.getTrelloUsername() + "/boards")
+    public List<TrelloBoardDto> getTrelloBoards() {
+        URI url = UriComponentsBuilder.fromHttpUrl(config.getTrelloApiEndpoint() + "/members/" + config.getTrelloUsername() + "/boards")
                 .queryParam("key", config.getTrelloAppKey())
                 .queryParam("token", config.getTrelloToken())
                 .queryParam("fields", "name,id")
@@ -34,11 +34,9 @@ public class TrelloClient {
                 .build()
                 .encode()
                 .toUri();
-    }
 
-    public List<TrelloBoardDto> getTrelloBoards() {
         try {
-            TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getMyUrl(), TrelloBoardDto[].class);
+            TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
             return Optional.ofNullable(boardsResponse)
                     .map(Arrays::asList)
                     .orElse(Collections.emptyList())
