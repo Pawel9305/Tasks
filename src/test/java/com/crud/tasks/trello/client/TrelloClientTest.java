@@ -104,5 +104,6 @@ class TrelloClientTest {
 
         //Then
         assertEquals(new ArrayList<>(), resultList);
+        assertEquals(0, resultList.size());
     }
 }
