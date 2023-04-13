@@ -14,7 +14,6 @@ import static java.util.Optional.ofNullable;
 @RequiredArgsConstructor
 @Slf4j
 public class SimpleEmailService {
-
     private final JavaMailSender javaMailSender;
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
