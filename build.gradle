@@ -29,6 +29,7 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
+	testImplementation 'com.google.code.gson:gson'
 }
 
 tasks.named('test') {

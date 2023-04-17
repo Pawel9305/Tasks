@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class TrelloValidator {
@@ -25,7 +24,7 @@ public class TrelloValidator {
         LOGGER.info("Starting filtering boards...");
         List<TrelloBoard> filteredBoards = trelloBoards.stream()
                 .filter(trelloBoard -> !trelloBoard.getName().equalsIgnoreCase("test"))
-                .collect(Collectors.toList());
+                .toList();
         LOGGER.info("Boards have been filtered. Current list size: " + filteredBoards.size());
 
         return filteredBoards;

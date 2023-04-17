@@ -30,8 +30,8 @@ public class TaskController {
     }
 
     @GetMapping(value = "{taskId}")
-    public ResponseEntity<TaskDto> getTask(@PathVariable long taskId) throws TaskNotFoundException{
-            return ResponseEntity.ok(taskMapper.mapToTaskDto(service.getById(taskId)));
+    public ResponseEntity<TaskDto> getTask(@PathVariable long taskId) throws TaskNotFoundException {
+        return ResponseEntity.ok(taskMapper.mapToTaskDto(service.getById(taskId)));
     }
 
     @DeleteMapping(value = "{taskId}")
@@ -48,9 +48,9 @@ public class TaskController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
         Task task = taskMapper.mapToTask(taskDto);
         service.saveTask(task);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(taskMapper.mapToTaskDto(task));
     }
 }
