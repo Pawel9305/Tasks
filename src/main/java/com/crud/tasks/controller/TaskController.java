@@ -25,13 +25,12 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskDto>> getTasks() {
-        List<Task> tasks = service.getAllTasks();
-        return ResponseEntity.ok(taskMapper.mapToTaskDtoList(tasks));
+        return ResponseEntity.ok(service.getAllTasks());
     }
 
     @GetMapping(value = "{taskId}")
     public ResponseEntity<TaskDto> getTask(@PathVariable long taskId) throws TaskNotFoundException {
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(service.getById(taskId)));
+        return ResponseEntity.ok(service.getById(taskId));
     }
 
     @DeleteMapping(value = "{taskId}")
@@ -42,15 +41,13 @@ public class TaskController {
 
     @PutMapping
     public ResponseEntity<TaskDto> updateTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
-        Task savedTask = service.saveTask(task);
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(savedTask));
+        service.saveTask(taskDto);
+        return ResponseEntity.ok(taskDto);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
-        service.saveTask(task);
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(task));
+    public ResponseEntity<Void> createTask(@RequestBody TaskDto taskDto) {
+        service.saveTask(taskDto);
+        return ResponseEntity.ok().build();
     }
 }
